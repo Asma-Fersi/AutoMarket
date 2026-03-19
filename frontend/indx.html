@@ -38,20 +38,23 @@
     <section class="featured">
         <h2>Featured Cars</h2>
         <div class="featured-grid">
-            <div class="car-card">
+            <div class="car-card" onclick="openCarDetails(6)">
                 <img src="car_images/R8.jpg" alt="Audi R8">
                 <h3>Audi R8</h3>
                 <p>480,000 DT</p>
+                <button class="details-btn" onclick="event.stopPropagation(); openCarDetails(6)">View Description</button>
             </div>
-            <div class="car-card">
+            <div class="car-card" onclick="openCarDetails(1)">
                 <img src="car_images/911.webp" alt="Porsche 911">
                 <h3>Porsche 911</h3>
                 <p>450,000 DT</p>
+                <button class="details-btn" onclick="event.stopPropagation(); openCarDetails(1)">View Description</button>
             </div>
-            <div class="car-card">
+            <div class="car-card" onclick="openCarDetails(8)">
                 <img src="car_images/RS7.webp" alt="Audi RS7">
                 <h3>Audi RS7</h3>
                 <p>360,000 DT</p>
+                <button class="details-btn" onclick="event.stopPropagation(); openCarDetails(8)">View Description</button>
             </div>
         </div>
     </section>
