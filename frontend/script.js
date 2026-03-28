@@ -259,3 +259,34 @@ if (form) {
         e.target.reset();
     });
 }*/
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        const update = () => {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.floor(current);
+                requestAnimationFrame(update);
+            } else {
+                counter.textContent = target;
+            }
+        };
+        update();
+    });
+}
+const statsSection = document.querySelector('.stats');
+if (statsSection) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.disconnect();
+            }
+        });
+    }, { threshold: 0.3 });
+    observer.observe(statsSection);
+}
