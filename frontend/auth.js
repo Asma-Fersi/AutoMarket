@@ -1,89 +1,69 @@
-const API = 'http://localhost:5000/api/auth';
-
 function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const errorMsg = document.getElementById('errorMsg');
-
-    if (email === '' || password === '') {
-        errorMsg.textContent = 'Please fill all fields';
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    if (!email || !password) {
+        alert("Please fill all fields");
         return;
     }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailPattern.test(email) === false) {
-        errorMsg.textContent = 'Please enter a valid email address';
-        return;
-    }
-
-    fetch(API + '/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, password: password })
+    fetch("../backend/auth.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            action: "login",
+            email: email,
+            password: password
+        })
     })
-    .then(function(res) {
-        return res.json();
-    })
-    .then(function(data) {
-        if (data.msg) {
-            errorMsg.textContent = data.msg;
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            // Save user name in localStorage
+            localStorage.setItem("user", data.name);
+            // Redirect to homepage
+            window.location.href = "indx.html";
         } else {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
-            window.location.href = 'indx.html';
+            alert("Invalid email or password");
         }
     })
-    .catch(function() {
-        errorMsg.textContent = 'Server error, make sure backend is running';
+    .catch(error => {
+        alert("Something went wrong");
+        console.log(error);
     });
 }
-
 function register() {
-    const fullName = document.getElementById('fullName').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const errorMsg = document.getElementById('errorMsg');
-
-    if (fullName === '' || email === '' || password === '' || confirmPassword === '') {
-        errorMsg.textContent = 'Please fill all fields';
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirmPassword").value.trim();
+    if (!name || !email || !password || !confirmPassword) {
+        alert("Please fill all fields");
         return;
     }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailPattern.test(email) === false) {
-        errorMsg.textContent = 'Please enter a valid email address';
-        return;
-    }
-
     if (password !== confirmPassword) {
-        errorMsg.textContent = 'Passwords do not match';
+        alert("Passwords do not match");
         return;
     }
-
-    if (password.length < 6) {
-        errorMsg.textContent = 'Password must be at least 6 characters';
-        return;
-    }
-
-    fetch(API + '/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fullName: fullName, email: email, password: password })
+    fetch("../backend/auth.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            action: "register",
+            name: name,
+            email: email,
+            password: password
+        })
     })
-    .then(function(res) {
-        return res.json();
-    })
-    .then(function(data) {
-        if (data.msg) {
-            errorMsg.textContent = data.msg;
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("Account created! Please sign in.");
+            window.location.href = "login.html";
         } else {
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
-            window.location.href = 'indx.html';
+            alert(data.message || "Something went wrong");
         }
     })
-    .catch(function() {
-        errorMsg.textContent = 'Server error, make sure backend is running';
+    .catch(error => {
+        alert("Something went wrong");
+        console.log(error);
     });
 }
