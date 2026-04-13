@@ -220,10 +220,11 @@ function renderCarDetails(car, container) {
         container.innerHTML = `
             <h2>Car not found</h2>
             <p style="color:#00f0ff; font-weight:bold;">The car id in the URL is invalid.</p>
-            <a class="back-link" href="indx.html#collection">Back to collection</a>
+            <a class="back-link" href="index.html#collection">Back to collection</a>
         `;
         return;
     }
+    document.title = `${car.brand} ${car.model} — TunLuxAuto`;
     container.innerHTML = `
         <div class="details-card">
             <div class="details-image-wrapper">
@@ -251,7 +252,7 @@ function renderCarDetails(car, container) {
                 </div>
                 <div class="details-actions">
                     <button class="buy-btn" onclick="inquire(${car.id})">Buy Now</button>
-                    <a class="back-link" href="indx.html#collection">← Back to collection</a>
+                    <a class="back-link" href="index.html#collection">← Back to collection</a>
                 </div>
             </div>
         </div>
