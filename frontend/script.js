@@ -303,6 +303,11 @@ if (statsSection) {
 }
 
 function inquire(carId) {
+    if (!localStorage.getItem('user')) {
+        sessionStorage.setItem('redirectAfterLogin', `contact.html?car=${encodeURIComponent(carId)}`);
+        window.location.href = 'register.html';
+        return;
+    }
     window.location.href = `contact.html?car=${encodeURIComponent(carId)}`;
 }
 

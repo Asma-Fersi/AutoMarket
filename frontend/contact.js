@@ -97,6 +97,11 @@ function logout() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateNavbar();
+    if (!localStorage.getItem('user')) {
+        sessionStorage.setItem('redirectAfterLogin', `contact.html`);
+        window.location.href = 'register.html';
+        return;
+    }
     prefillFromUser();
+    updateNavbar();
 });
