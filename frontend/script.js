@@ -339,8 +339,3 @@ function logout() {
     localStorage.removeItem('user');
     window.location.reload();
 }
-
-fetch("../backend/contact.php", {
-    method: "POST",
-    body: JSON.stringify({ name, phone, email })
-})
