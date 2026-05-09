@@ -50,4 +50,8 @@ if ($action === "login") {
         echo json_encode(["status" => "error", "message" => "Invalid credentials"]);
     }
 }
+
+if ($action !== "register" && $action !== "login") {
+    echo json_encode(["status" => "error", "message" => "Unknown action"]);
+}
 ?>
