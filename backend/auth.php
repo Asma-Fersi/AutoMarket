@@ -13,20 +13,23 @@ $action = $data->action;
 
 if ($action === "register") {
     $name = $data->name;
-    $email = $data->email; 
+    $email = $data->email;
     $phone = $data->phone;
-    $password = password_hash($data->password, PASSWORD_DEFAULT); 
-    
-    $stmt = $pdo->prepare("INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$name, $email, $phone, $password]);
-    
-    echo json_encode([
-        "status" => "success",
-        "name"   => $name,
-        "email"  => $email,
-        "phone"  => $phone,
-        "role"   => "user"
-    ]);
+    $password = password_hash($data->password, PASSWORD_DEFAULT);
+
+    try {
+        $stmt = $pdo->prepare("INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$name, $email, $phone, $password]);
+        echo json_encode([
+            "status" => "success",
+            "name"   => $name,
+            "email"  => $email,
+            "phone"  => $phone,
+            "role"   => "user"
+        ]);
+    } catch (PDOException $e) {
+        echo json_encode(["status" => "error", "message" => "Email already in use"]);
+    }
 }
 
 if ($action === "login") {
