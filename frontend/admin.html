@@ -415,9 +415,9 @@
             tbody.innerHTML = users.map(u => `
                 <tr>
                     <td>#${u.id}</td>
-                    <td>${escape(u.name)}</td>
-                    <td>${escape(u.email)}</td>
-                    <td>${escape(u.phone)}</td>
+                    <td>${esc(u.name)}</td>
+                    <td>${esc(u.email)}</td>
+                    <td>${esc(u.phone)}</td>
                     <td><span class="role-badge role-${u.role}">${u.role}</span></td>
                     <td>${u.created_at ? new Date(u.created_at).toLocaleDateString() : '—'}</td>
                     <td>
@@ -429,8 +429,8 @@
             `).join('');
         }
 
-        function escape(str) {
-            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        function esc(str) {
+            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
         }
 
         function openRoleModal(userId, currentRole) {
