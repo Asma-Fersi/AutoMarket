@@ -23,7 +23,8 @@ function login() {
             localStorage.setItem("user", JSON.stringify({
                 name:  data.name,
                 email: data.email,
-                phone: data.phone
+                phone: data.phone,
+                role:  data.role || 'user'
             }));
             const redirect = sessionStorage.getItem('redirectAfterLogin');
             sessionStorage.removeItem('redirectAfterLogin');
@@ -83,7 +84,8 @@ function register() {
             localStorage.setItem("user", JSON.stringify({
                 name:  data.name,
                 email: data.email,
-                phone: data.phone
+                phone: data.phone,
+                role:  data.role || 'user'
             }));
             const redirect = sessionStorage.getItem('redirectAfterLogin');
             sessionStorage.removeItem('redirectAfterLogin');

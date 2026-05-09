@@ -20,7 +20,8 @@ if ($action === "register") {
         "status" => "success",
         "name"   => $name,
         "email"  => $email,
-        "phone"  => $phone
+        "phone"  => $phone,
+        "role"   => "user"
     ]);
 }
 
@@ -34,11 +35,12 @@ if ($action === "login") {
 
     if ($user && password_verify($password, $user['password'])) {
         echo json_encode([
-            "status" => "success",
+            "status"  => "success",
             "message" => "Logged in",
-            "name" => $user['name'],
-            "email" => $user['email'],
-            "phone" => $user['phone']
+            "name"    => $user['name'],
+            "email"   => $user['email'],
+            "phone"   => $user['phone'],
+            "role"    => $user['role']
         ]);
     } else {
         echo json_encode(["status" => "error", "message" => "Invalid credentials"]);

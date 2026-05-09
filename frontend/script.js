@@ -391,9 +391,15 @@ function updateNavbar() {
             navUserName.textContent = parsed.name.charAt(0).toUpperCase();
             const helloEl = document.getElementById('navDropdownHello');
             if (helloEl) helloEl.textContent = 'Hello ' + parsed.name + '!';
+
+            // Show admin link if user is admin
+            const adminLinkEl = document.getElementById('navAdminLink');
+            if (adminLinkEl) {
+                adminLinkEl.style.display = parsed.role === 'admin' ? 'block' : 'none';
+            }
+
             navUserName.onclick = function() {
                 const dropdown = document.getElementById('navDropdown');
-                const isVisible = dropdown.style.display === 'block';
                 dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
             };
         }
