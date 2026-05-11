@@ -1,6 +1,7 @@
 # AutoMarket
 
-Luxury car marketplace built with PHP, Symfony, and PostgreSQL.
+Luxury car marketplace built with PHP, Symfony, and MySQL.
+https://automarket-production-ac0c.up.railway.app
 
 ## Structure
 
