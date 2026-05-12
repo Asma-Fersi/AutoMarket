@@ -14,8 +14,8 @@ require_once "db.php";
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (!$data || empty($data->name) || empty($data->phone) || empty($data->email)) {
-    echo json_encode(["status" => "error", "message" => "Missing required fields"]);
+if (!$data || empty($data->user_id)) {
+    echo json_encode(["status" => "error", "message" => "Missing user"]);
     exit;
 }
 
